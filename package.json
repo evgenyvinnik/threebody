@@ -1,0 +1,16 @@
+{
+  "name": "threebody",
+  "version": "1.0.0",
+  "homepage": "https://evgenyvinnik.github.io/threebody",
+  "description": "3 body simulator",
+  "main": "main.js",
+  "dependencies": {
+    "three": "^0.163.0"
+  },
+  "keywords": [],
+  "author": "Evgeny Vinnik",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "vite": "^5.2.8"
+  }
+}
