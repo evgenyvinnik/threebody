@@ -27,7 +27,7 @@ const orbit = new OrbitControls(camera, renderer.domElement);
 camera.position.set(-90, 140, 140);
 orbit.update();
 
-const ambientLight = new THREE.AmbientLight(0x666666);
+const ambientLight = new THREE.AmbientLight(0x999999);
 scene.add(ambientLight);
 
 const cubeTextureLoader = new THREE.CubeTextureLoader();
@@ -49,36 +49,44 @@ const sunMat = new THREE.MeshBasicMaterial({
 const sun = new THREE.Mesh(sunGeo, sunMat);
 scene.add(sun);
 
-function createPlanete(size, texture, position, ring) {
-    const geo = new THREE.SphereGeometry(size, 30, 30);
-    const mat = new THREE.MeshStandardMaterial({
-        map: textureLoader.load(texture)
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    const obj = new THREE.Object3D();
-    obj.add(mesh);
 
-    scene.add(obj);
-    mesh.position.x = position;
-    return {mesh, obj}
-}
+const earthGeo = new THREE.SphereGeometry(6, 30, 30);
+const earthMat = new THREE.MeshStandardMaterial({
+  map: textureLoader.load(earthTexture)
+});
+
+const earthMesh = new THREE.Mesh(earthGeo, earthMat);
+const earthObj = new THREE.Object3D();
+earthObj.add(earthMesh);
+
+scene.add(earthObj);
+earthMesh.position.x = 62;
 
 
-const earth = createPlanete(6, earthTexture, 62);
-const moon = createPlanete(4, moonTexture, 78);
+const moonGeo = new THREE.SphereGeometry(4, 30, 30);
+const moonMat = new THREE.MeshStandardMaterial({
+  map: textureLoader.load(moonTexture)
+});
 
-const pointLight = new THREE.PointLight(0xFFFFFF, 2, 300);
+const moonMesh = new THREE.Mesh(moonGeo, moonMat);
+const moonObj = new THREE.Object3D();
+moonObj.add(moonMesh);
+
+scene.add(moonObj);
+moonMesh.position.x = 78;
+
+const pointLight = new THREE.PointLight(0xFFFFFF, 10, 300);
 scene.add(pointLight);
 
 function animate() {
     //Self-rotation
     sun.rotateY(0.004);
-    earth.mesh.rotateY(0.02);
-    moon.mesh.rotateY(0.018);
+    earthMesh.rotateY(0.02);
+    moonMesh.rotateY(0.018);
 
     //Around-sun-rotation
-    earth.obj.rotateY(0.01);
-    moon.obj.rotateY(0.008);
+    earthObj.rotateY(0.01);
+    moonObj.rotateY(0.008);
 
     renderer.render(scene, camera);
 }
